@@ -1,4 +1,4 @@
-/* after changing this file run 'npm run webpack:build' */
+/* after changing this file run 'yarn run webpack:build' */
 
 /***************************
 put Sass variables here:
@@ -10,11 +10,4 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
-// @import '~ionicons/scss/ionicons.scss';
-// @import '~socicon/css/socicon.css';
-// @import '~nebular-icons/scss/nebular-icons.scss';
-$ionicons-font-path: '~ionicons/fonts';
-@import '~ionicons/scss/ionicons.scss';
-$nebular-icons-font-path: '~nebular-icons/fonts';
-@import '~nebular-icons/scss/nebular-icons.scss';
-@import '../../app/layouts/styles/styles.scss';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
