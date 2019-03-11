@@ -366,7 +366,7 @@ z-index: 999;}
 .promo3 { background:#fa8072;}
 .promo4 { background:#4abebd;}
 .section-title {
-  font-family: "Raleway",sans-serif;
+  font-family: cursive, 'MS Comic Sans';
   font-size: 50px;
   font-weight: 100;
   margin-bottom: 50px;
@@ -491,7 +491,7 @@ z-index: 999;}
 .maincontent-area {padding-bottom: 50px; padding-top:20px;}
 
 .product-wid-title {
-  font-family: raleway;
+  font-family: cursive, 'MS Comic Sans';
   font-size: 30px;
   font-weight: 100;
   margin-bottom: 40px;
@@ -556,7 +556,7 @@ padding: 35px 0 180px;}
   color: #5a88ca;
 }
 .footer-wid-title {
-  font-family: raleway;
+  font-family: cursive, 'MS Comic Sans';
   font-size: 30px;
   font-weight: 100;color: #fff
 }
