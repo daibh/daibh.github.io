@@ -1,5 +1,3 @@
-console.log('[MSG] Loaded');
-
 var GoogleAnalysis = /** @class */ (function () {
   function GoogleAnalysis(code) {
       this.events = [];
@@ -31,15 +29,16 @@ var GoogleAnalysis = /** @class */ (function () {
       this.gtag('config', 'G-DL3FM9GLQE');
   };
   GoogleAnalysis.prototype.getDefinedEvents = function () {
+      var _this = this;
       var links = document.getElementsByTagName('a');
       var _loop_1 = function (i) {
           var _link = links.item(i);
           _link.addEventListener('click', function (e) {
-            var gaEvent = _link.getAttribute('gaEvent');
-            var gaCategory = _link.getAttribute('gaCategory');
-            var gaValue = _link.getAttribute('gaValue');
-            console.log('attributes', _link.attributes, gaEvent, gaCategory, gaValue);
-        });
+              var event = _link.getAttribute('gaEvent');
+              var category = _link.getAttribute('gaCategory');
+              var value = _link.getAttribute('gaValue');
+              _this.gtag(event, category, value);
+          });
       };
       for (var i = 0; i < links.length; i++) {
           _loop_1(i);
@@ -72,6 +71,7 @@ var GoogleAnalysis = /** @class */ (function () {
       for (var _i = 0; _i < arguments.length; _i++) {
           params[_i] = arguments[_i];
       }
+      params.forEach(function (_) { return console.log('gtag', _); });
       window.dataLayer.push(params);
   };
   return GoogleAnalysis;
