@@ -13,20 +13,24 @@ var GoogleAnalysis = /** @class */ (function () {
   };
   GoogleAnalysis.prototype.injectDependences = function () {
     // Google tag (gtag.js)
-    (function (d, s, id, c) {
+    (function (d, s, id, c, cb) {
       var e, fsc = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
-        return;
+          return;
       }
       e = d.createElement(s);
       e.id = id;
+      e.onload = function () {
+          cb();
+      };
       e.src = "https://www.googletagmanager.com/gtag/js?id=".concat(c);
       e.setAttribute('async', true);
       fsc.parentNode.insertBefore(e, fsc);
-    }(document, 'script', 'gtag-js-sdk', this.code));
+    }(document, 'script', 'gtag-js-sdk', this.code, function () {
+        _this.gtag('js', new Date());
+        _this.gtag('config', 'G-DL3FM9GLQE');
+    }));
     window.dataLayer = window.dataLayer || [];
-    this.gtag('js', new Date());
-    this.gtag('config', 'G-DL3FM9GLQE');
   };
   GoogleAnalysis.prototype.getDefinedEvents = function () {
     var _this = this;
