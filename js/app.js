@@ -30,6 +30,19 @@ var GoogleAnalysis = /** @class */ (function () {
       this.gtag('js', new Date());
       this.gtag('config', 'G-DL3FM9GLQE');
   };
+  GoogleAnalysis.prototype.getDefinedEvents = function () {
+      var links = document.getElementsByTagName('a');
+      var _loop_1 = function (i) {
+          var _link = links.item(i);
+          _link.addEventListener('click', function (e) {
+              console.log('attributes', _link.attributes);
+          });
+      };
+      for (var i = 0; i < links.length; i++) {
+          _loop_1(i);
+      }
+      return [];
+  };
   GoogleAnalysis.prototype.addEvent = function (event) {
       this.events.push(event);
   };
@@ -39,10 +52,13 @@ var GoogleAnalysis = /** @class */ (function () {
   };
   GoogleAnalysis.prototype.bindEvents = function () {
       var _this = this;
-      window.addEventListener('DOMContentLoaded', function () { return _this.events.forEach(function (_a) {
-          var name = _a.name, listener = _a.listener;
-          return window.document.addEventListener(name, listener);
-      }); });
+      window.addEventListener('DOMContentLoaded', function () {
+          _this.getDefinedEvents();
+          _this.events.forEach(function (_a) {
+              var name = _a.name, listener = _a.listener;
+              return window.document.addEventListener(name, listener);
+          });
+      });
       window.addEventListener('beforeunload', function () { return _this.events.forEach(function (_a) {
           var name = _a.name, listener = _a.listener;
           return window.document.removeEventListener(name, listener);
