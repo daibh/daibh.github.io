@@ -11,8 +11,8 @@ var GoogleAnalysis = /** @class */ (function () {
     return GoogleAnalysis.instance;
   };
   GoogleAnalysis.prototype.configure = function () {
-    gtag('js', new Date());
-    gtag('config', this.code);
+    // gtag('js', new Date());
+    // gtag('config', this.code);
   };
   GoogleAnalysis.prototype.bindEvents = function () {
     window.addEventListener('DOMContentLoaded', function () {
