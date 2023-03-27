@@ -23,7 +23,8 @@ var GoogleAnalysis = /** @class */ (function () {
         var event = el.getAttribute('gaEvent');
         var category = el.getAttribute('gaCategory');
         var value = el.getAttribute('gaValue');
-        window.dataLayer.push({ event: 'click', evenModel: { event, category, value } });
+        console.log({ event, category, value });
+        window.dataLayer.push({ event, category, value });
       };
       for (var i = 0; i < links.length; i++) {
         var _link = links.item(i);
