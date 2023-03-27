@@ -22,7 +22,7 @@ var GoogleAnalysis = /** @class */ (function () {
         var event = el.getAttribute('gaEvent');
         var category = el.getAttribute('gaCategory');
         var value = el.getAttribute('gaValue');
-        gtag({ event, category, value });
+        gtag('event', 'click', { event, category, value });
       };
       for (var i = 0; i < links.length; i++) {
         var _link = links.item(i);
