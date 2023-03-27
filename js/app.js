@@ -25,7 +25,7 @@ var GoogleAnalysis = /** @class */ (function () {
             cb();
         };
         e.src = "https://www.googletagmanager.com/gtag/js?id=".concat(c);
-        e.setAttribute('async', true);
+        e.setAttribute('async', '');
         fsc.parentNode.insertBefore(e, fsc);
     }(document, 'script', 'gtag-js-sdk', this.code, function () {
         _this.gtag('js', new Date());

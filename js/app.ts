@@ -29,7 +29,7 @@ class GoogleAnalysis {
     }
 
     private injectDependences(): void {
-        /// Google tag (gtag.js)
+        // Google tag (gtag.js)
         (function (d, s, id, c, cb) {
         var e, fsc = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {
