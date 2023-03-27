@@ -1,63 +1,38 @@
 var GoogleAnalysis = /** @class */ (function () {
   function GoogleAnalysis(code) {
-    this.events = [];
-    this.code = code;
+      this.code = code;
+      this.configure();
   }
   GoogleAnalysis.init = function (code) {
-    console.log('GoogleAnalysis::initialize', { code: code });
-    if (!GoogleAnalysis.instance) {
-      return GoogleAnalysis.instance = new GoogleAnalysis(code);
-    }
-    return GoogleAnalysis.instance;
+      console.log('GoogleAnalysis::initialize', { code: code });
+      if (!GoogleAnalysis.instance) {
+          return GoogleAnalysis.instance = new GoogleAnalysis(code);
+      }
+      return GoogleAnalysis.instance;
   };
-  GoogleAnalysis.prototype.getDefinedEvents = function () {
-    var _this = this;
-    var links = document.getElementsByTagName('a');
-    var _loop_1 = function (i) {
-      var _link = links.item(i);
-      _link.addEventListener('click', function (e) {
-        var event = _link.getAttribute('gaEvent');
-        var category = _link.getAttribute('gaCategory');
-        var value = _link.getAttribute('gaValue');
-        gtag({ event, category, value });
-        e.preventDefault();
-      });
-    };
-    for (var i = 0; i < links.length; i++) {
-      _loop_1(i);
-    }
-    return [];
-  };
-  GoogleAnalysis.prototype.addEvent = function (event) {
-    this.events.push(event);
-  };
-  GoogleAnalysis.prototype.addEvents = function (events) {
-    var _a;
-    (_a = this.events).push.apply(_a, events);
+  GoogleAnalysis.prototype.configure = function () {
+      gtag('js', new Date());
+      gtag('config', this.code);
   };
   GoogleAnalysis.prototype.bindEvents = function () {
-    var _this = this;
-    window.addEventListener('DOMContentLoaded', function () {
-      _this.getDefinedEvents();
-      _this.events.forEach(function (_a) {
-        var name = _a.name, listener = _a.listener;
-        return window.document.addEventListener(name, listener);
+      window.addEventListener('DOMContentLoaded', function () {
+          var links = document.getElementsByTagName('a');
+          var onClickListener = function (e) {
+              var el = e.currentTarget;
+              var event = el.getAttribute('gaEvent');
+              var category = el.getAttribute('gaCategory');
+              var value = el.getAttribute('gaValue');
+              gtag(event, category, value);
+          };
+          for (var i = 0; i < links.length; i++) {
+              var _link = links.item(i);
+              _link.addEventListener('click', onClickListener);
+          }
       });
-    });
-    window.addEventListener('beforeunload', function () {
-      return _this.events.forEach(function (_a) {
-        var name = _a.name, listener = _a.listener;
-        return window.document.removeEventListener(name, listener);
-      });
-    });
   };
   return GoogleAnalysis;
 }());
-var googleAnalysis = GoogleAnalysis.init('G-DL3FM9GLQE');
-googleAnalysis.addEvent({
-  name: 'click',
-  listener: function (e) {
-    console.log('click', e, this);
-  }
-});
-googleAnalysis.bindEvents();
+(function() {
+  var googleAnalysis = GoogleAnalysis.init('G-DL3FM9GLQE');
+  googleAnalysis.bindEvents();
+}());
