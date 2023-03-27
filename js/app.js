@@ -38,6 +38,7 @@ var GoogleAnalysis = /** @class */ (function () {
         var category = _link.getAttribute('gaCategory');
         var value = _link.getAttribute('gaValue');
         _this.gtag({ event, category, value });
+        e.preventDefault();
       });
     };
     for (var i = 0; i < links.length; i++) {
