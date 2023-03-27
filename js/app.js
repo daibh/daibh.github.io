@@ -2,7 +2,6 @@ var GoogleAnalysis = /** @class */ (function () {
   function GoogleAnalysis(code) {
     this.events = [];
     this.code = code;
-    this.injectDependences();
   }
   GoogleAnalysis.init = function (code) {
     console.log('GoogleAnalysis::initialize', { code: code });
@@ -10,9 +9,6 @@ var GoogleAnalysis = /** @class */ (function () {
       return GoogleAnalysis.instance = new GoogleAnalysis(code);
     }
     return GoogleAnalysis.instance;
-  };
-  GoogleAnalysis.prototype.injectDependences = function () {
-    var _this = this;
   };
   GoogleAnalysis.prototype.getDefinedEvents = function () {
     var _this = this;
@@ -23,7 +19,7 @@ var GoogleAnalysis = /** @class */ (function () {
         var event = _link.getAttribute('gaEvent');
         var category = _link.getAttribute('gaCategory');
         var value = _link.getAttribute('gaValue');
-        _this.gtag({ event, category, value });
+        gtag({ event, category, value });
         e.preventDefault();
       });
     };
@@ -54,9 +50,6 @@ var GoogleAnalysis = /** @class */ (function () {
         return window.document.removeEventListener(name, listener);
       });
     });
-  };
-  GoogleAnalysis.prototype.gtag = function () {
-    gtag(arguments);
   };
   return GoogleAnalysis;
 }());
