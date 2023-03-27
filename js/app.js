@@ -17,12 +17,13 @@ var GoogleAnalysis = /** @class */ (function () {
   GoogleAnalysis.prototype.bindEvents = function () {
     window.addEventListener('DOMContentLoaded', function () {
       var links = document.getElementsByTagName('a');
+      window.dataLayer = window.dataLayer || [];
       var onClickListener = function (e) {
         var el = e.currentTarget;
         var event = el.getAttribute('gaEvent');
         var category = el.getAttribute('gaCategory');
         var value = el.getAttribute('gaValue');
-        gtag('event', 'click', { event, category, value });
+        window.dataLayer.push({ event, evenModel: { event, category, value } });
       };
       for (var i = 0; i < links.length; i++) {
         var _link = links.item(i);
