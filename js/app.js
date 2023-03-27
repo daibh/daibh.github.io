@@ -35,8 +35,11 @@ var GoogleAnalysis = /** @class */ (function () {
       var _loop_1 = function (i) {
           var _link = links.item(i);
           _link.addEventListener('click', function (e) {
-              console.log('attributes', _link.attributes);
-          });
+            var gaEvent = _link.getAttribute('gaEvent');
+            var gaCategory = _link.getAttribute('gaCategory');
+            var gaValue = _link.getAttribute('gaValue');
+            console.log('attributes', _link.attributes, gaEvent, gaCategory, gaValue);
+        });
       };
       for (var i = 0; i < links.length; i++) {
           _loop_1(i);
