@@ -12,20 +12,21 @@ var GoogleAnalysis = /** @class */ (function () {
     return GoogleAnalysis.instance;
   };
   GoogleAnalysis.prototype.injectDependences = function () {
+    var _this = this;
     // Google tag (gtag.js)
     (function (d, s, id, c, cb) {
-      var e, fsc = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-          return;
-      }
-      e = d.createElement(s);
-      e.id = id;
-      e.onload = function () {
-          cb();
-      };
-      e.src = "https://www.googletagmanager.com/gtag/js?id=".concat(c);
-      e.setAttribute('async', true);
-      fsc.parentNode.insertBefore(e, fsc);
+        var e, fsc = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        e = d.createElement(s);
+        e.id = id;
+        e.onload = function () {
+            cb();
+        };
+        e.src = "https://www.googletagmanager.com/gtag/js?id=".concat(c);
+        e.setAttribute('async', true);
+        fsc.parentNode.insertBefore(e, fsc);
     }(document, 'script', 'gtag-js-sdk', this.code, function () {
         _this.gtag('js', new Date());
         _this.gtag('config', 'G-DL3FM9GLQE');

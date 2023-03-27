@@ -29,18 +29,39 @@ class GoogleAnalysis {
     }
 
     private injectDependences(): void {
-        // Google tag (gtag.js)
-        (function (d, s, id, c) {
-            var e, fsc = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            e = d.createElement(s); e.id = id;
-            e.src = `https://www.googletagmanager.com/gtag/js?id=${c}`;
-            e.setAttribute('async', true);
-            fsc.parentNode.insertBefore(e, fsc);
-        }(document, 'script', 'gtag-js-sdk', this.code));
-        window.dataLayer = window.dataLayer || [];
+        /// Google tag (gtag.js)
+        (function (d, s, id, c, cb) {
+        var e, fsc = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        e = d.createElement(s);
+        e.id = id;
+        e.onload = function() {
+            cb();
+        }
+        e.src = "https://www.googletagmanager.com/gtag/js?id=".concat(c);
+        e.setAttribute('async', true);
+        fsc.parentNode.insertBefore(e, fsc);
+        }(document, 'script', 'gtag-js-sdk', this.code, () => {
         this.gtag('js', new Date());
         this.gtag('config', 'G-DL3FM9GLQE');
+        }));
+        window.dataLayer = window.dataLayer || [];
+    }
+
+    private getDefinedEvents(): GaEvent[] {
+        const links = document.getElementsByTagName('a');
+        for(let i = 0; i < links.length; i++) {
+            const _link = links.item(i);
+            _link.addEventListener('click', e => {
+                const event = _link.getAttribute('gaEvent');
+                const category = _link.getAttribute('gaCategory');
+                const value = _link.getAttribute('gaValue');
+                this.gtag({ event, category, value });
+            })
+        }
+        return [];
     }
 
     addEvent(event: GaEvent): void {
@@ -52,13 +73,15 @@ class GoogleAnalysis {
     }
 
     bindEvents(): void {
-        window.addEventListener('DOMContentLoaded', () => this.events.forEach(({ name, listener }) => window.document.addEventListener(name, listener)));
+        window.addEventListener('DOMContentLoaded', () => {
+            this.getDefinedEvents();
+            this.events.forEach(({ name, listener }) => window.document.addEventListener(name, listener));
+        });
         window.addEventListener('beforeunload', () => this.events.forEach(({ name, listener }) => window.document.removeEventListener(name, listener)));
     }
 
-
-
     gtag(...params): void {
+        params.forEach(_ => console.log('gtag', _));
         window.dataLayer.push(params);
     }
 }
@@ -71,3 +94,4 @@ googleAnalysis.addEvent({
     }
 });
 googleAnalysis.bindEvents();
+
